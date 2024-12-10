@@ -115,6 +115,7 @@
 ;; Command data
 
 (def commands {"move" move,
+               "portal" portal,
                "north" (fn [] (move :north)),
                "south" (fn [] (move :south)),
                "east" (fn [] (move :east)),
