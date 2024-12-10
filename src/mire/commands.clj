@@ -44,6 +44,15 @@
          (move-between-refs player/*name*
                             (:inhabitants @player/*current-room*)
                             (:inhabitants target))
+          (doseq [inhabitant (disj @(:inhabitants @player/*current-room*) player/*name*)]
+          (binding [*out* (player/streams inhabitant)]
+           (println (str player/*name* " exits room through " direction))
+           (println player/prompt)))
+         (doseq [inhabitant (disj @(:inhabitants target) player/*name*)]
+          (binding [*out* (player/streams inhabitant)]
+           (println (str player/*name* " enters room through " (direction_opposite (keyword direction))))
+           (println player/prompt)))
+
          (ref-set player/*current-room* target)
          (look))
        "You can't go that way."))))
