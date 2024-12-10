@@ -9,6 +9,15 @@
   (alter from disj obj)
   (alter to conj obj))
 
+;; Opposite direction for each direction
+
+(def direction_opposite {
+               :north :south,
+               :south :north,
+               :east :west,
+               :west :east,
+               :portal :portal})
+
 ;; Command functions
 
 (defn look
