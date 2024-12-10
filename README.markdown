@@ -1,6 +1,6 @@
 # Mire
 ПРОБНЫЙ КОММИТ
-ПЕРВЫЙ КОММИТ В МОЕЙ ВЕТКЕ ann
+
 It's a nonviolent MUD. (Multi-User Dungeon)
 
 ## Usage
