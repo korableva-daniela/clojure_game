@@ -36,6 +36,8 @@
          target (@rooms/rooms target-name)]
      (if target
        (do
+         (if (= "portal" direction) 
+          (alter (:exits @player/*current-room*) dissoc :portal)) 
          (move-between-refs player/*name*
                             (:inhabitants @player/*current-room*)
                             (:inhabitants target))
