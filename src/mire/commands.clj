@@ -83,6 +83,17 @@
       (str item " is not in any room."))
     "You need to be carrying the detector for that."))
 
+(defn portal
+  "If you have the staff, you can open a one-time portal to any room."
+  [destination]
+  (if (@player/*inventory* :staff)
+    (if-let [room (first (filter #(= (:name %) (keyword destination)) (vals @rooms/rooms)))]
+     (dosync 
+      (alter (:exits @player/*current-room*) assoc :portal (keyword destination))
+      (str "A portal to " destination " was open."))
+     (str "No room with name " destination))
+    "You need to be carrying the staff for that."))
+
 (defn say
   "Say something out loud so everyone in the room can hear."
   [& words]
