@@ -78,7 +78,26 @@
                             (:items @player/*current-room*))
          (str "You dropped the " thing "."))
      (str "You're not carrying a " thing "."))))
+     
+ (defn give
+  "Give something from your inventory to someone else."
+  [thing_seq person]
+  (dosync
+  (let [thing (first thing_seq)]
+   (if (player/carrying? thing)
+     (let [person_name (str/join " " person)]
+      (if (some #{person_name} (disj @(:inhabitants @player/*current-room*) player/*name*))
+       (do
+         (move-between-refs (keyword thing)
+                            player/*inventory*
+                            (rooms/players_inventories person_name))
+         (binding [*out* (player/streams person_name)]
+          (println (str player/*name* " gives you: " thing))
+          (println player/prompt))
+         (str "You gave the " thing " to " person_name "."))
+       (str person_name " is not here")))
 
+     (str "You're not carrying a " thing ".")))))
 (defn inventory
   "See what you've got."
   []
